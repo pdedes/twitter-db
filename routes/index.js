@@ -8,11 +8,16 @@ module.exports = function(io) {
 	router.get('/', function(req, res) {
 		// var tweets = tweetBank.list()
 		console.log("hello?");
-		
+
 		models.Tweet.findAll({
 			include: [ models.User ]
 		}).then(function(tweets) {
-			console.log(JSON.stringify(tweets));
+			tweets.forEach( function(tweet) {
+				console.log(tweet.dataValues);
+				
+			}
+			)
+			
 			res.render('index', {
 				tweets: JSON.stringify(tweets),
 				showForm: true
