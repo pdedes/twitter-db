@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/public'))
 
 
 var server = app.listen(3000)
-console.log(server)
+// console.log(server)
 var io = socketio.listen(server)
 
 var routes = require('./routes')(io)

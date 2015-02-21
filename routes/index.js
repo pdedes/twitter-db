@@ -1,26 +1,38 @@
 var express = require('express')
-var tweetBank = require('../tweetBank')
+// var tweetBank = require('../tweetBank')
+var models = require('../models');
 
 module.exports = function(io) {
 	var router = express.Router()
 
 	router.get('/', function(req, res) {
-		var tweets = tweetBank.list()
-		res.render('index', {
-			tweets: tweets,
-			showForm: true
+		// var tweets = tweetBank.list()
+		console.log("hello?");
+		
+		models.Tweet.findAll({
+			include: [ models.User ]
+		}).then(function(tweets) {
+			console.log(JSON.stringify(tweets));
+			res.render('index', {
+				tweets: JSON.stringify(tweets),
+				showForm: true
+			})
 		})
 		// get tweets
 		//render index
 	})
 
 	router.get('/users/:name', function(req, res) {
-		var tweets = tweetBank.find({name: req.params.name})
-		res.render('index', {
-			tweets: tweets,
-			formName: req.params.name,
-			showForm: true
+		// var tweets = tweetBank.find({name: req.params.name})
+
+		models.Tweet.findAll({include: [User] }).then(function(tweets) {
+			res.render('index', {
+				tweets: tweets,
+				formName: req.params.name,
+				showForm: true
+			})
 		})
+		console.log(Tweet);
 	})
 
 	router.get('/users/:name/tweets/:id', function(req, res){
