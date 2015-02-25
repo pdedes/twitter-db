@@ -12,17 +12,17 @@ module.exports = function(io) {
 		models.Tweet.findAll({
 			include: [ models.User ]
 		}).then(function(tweets) {
-			tweets.forEach( function(tweet) {
-				console.log(tweet.dataValues);
-				
-			}
-			)
+			// tweets.forEach( function(tweet) {
+			// 	console.log(tweet.dataValues);
+			// });
 			
+			// res.status(200).end();
 			res.render('index', {
-				tweets: JSON.stringify(tweets),
+				title: "Twitter.js",
+				// tweets: tweets,
 				showForm: true
-			})
-		})
+			});
+		});
 		// get tweets
 		//render index
 	})
@@ -35,8 +35,8 @@ module.exports = function(io) {
 				tweets: tweets,
 				formName: req.params.name,
 				showForm: true
-			})
-		})
+			});
+		});
 		console.log(Tweet);
 	})
 
